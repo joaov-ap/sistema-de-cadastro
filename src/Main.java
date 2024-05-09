@@ -1,6 +1,3 @@
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,33 +7,42 @@ public class Main {
         PersonRegistration personRegistration = new PersonRegistration();
         List<Person> personList = new ArrayList<>();
         List<String> questions = new ArrayList<>();
-
+        List<String> userAnswer = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
-        for (int i = 0; i < 3; i++) {
-            personRegistration.questionsReader(questions);
-            System.out.println(questions.get(0));
-            String name = sc.nextLine();
-            System.out.println(questions.get(1));
-            String email = sc.next();
-            System.out.println(questions.get(2));
-            int age = sc.nextInt();
-            sc.nextLine();
-            System.out.println(questions.get(3));
-            double height = sc.nextDouble();
-            sc.nextLine();
+        while (true) {
+            int i = 0;
+            menu();
+            i = sc.nextInt();
 
-            Person person = new Person(name, email, age, height);
-            personList.add(person);
-
-            personRegistration.addPersonToTxt(i, person);
+            switch (i) {
+                case 1:
+                    personRegistration.register(questions, userAnswer, personList, personRegistration);
+                    System.out.println();
+                    break;
+                case 2:
+                    personRegistration.addedPersonList(personList);
+                    System.out.println();
+                    break;
+                case 3:
+                    System.out.println();
+                    break;
+                case 4:
+                    System.out.println();
+                    break;
+                case 5:
+                    System.out.println();
+                    break;
+                default:
+                    System.out.println("Escolha invalida. Tente novamente!");
+                    System.out.println();
+                    break;
+            }
         }
-
-        personList.forEach(System.out::println);
 
     }
 
-    public void menu() {
+    public static void menu() {
         System.out.print("""
                 1 - Cadastrar o usuário
                 2 - Listar todos usuários cadastrados

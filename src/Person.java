@@ -4,6 +4,9 @@ public class Person {
     private int age;
     private double height;
 
+    public Person() {
+    }
+
     public Person(String name, String email, int age, double height) {
         this.name = name;
         this.email = email;
