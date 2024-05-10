@@ -6,7 +6,6 @@ public class Main {
     public static void main(String[] args) {
         PersonRegistration personRegistration = new PersonRegistration();
         List<Person> personList = new ArrayList<>();
-        List<String> userAnswer = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         int i = 0;
@@ -15,7 +14,7 @@ public class Main {
             i = sc.nextInt();
             switch (i) {
                 case 1:
-                    personRegistration.register(userAnswer, personList, personRegistration);
+                    personRegistration.register(personList, personRegistration);
                     System.out.println();
                     break;
                 case 2:

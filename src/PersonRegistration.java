@@ -36,13 +36,14 @@ public class PersonRegistration {
         }
     }
 
-    public void register(List<String> userAnswer, List<Person> personList, PersonRegistration personRegistration) {
+    public void register(List<Person> personList, PersonRegistration personRegistration) {
         Scanner sc = new Scanner(System.in);
         List<String> questions = new ArrayList<>();
+        List<String> userAnswer = new ArrayList<>();
         personRegistration.questionsReader(questions);
 
-        for (int i = 0; i < questions.size(); i++) {
-            System.out.println(questions.get(i));
+        for (String question : questions) {
+            System.out.println(question);
             String answer = sc.nextLine();
             userAnswer.add(answer);
         }
@@ -53,6 +54,8 @@ public class PersonRegistration {
         double height = Double.parseDouble(userAnswer.get(3));
 
         Person person = new Person(name, email, age, height);
+        System.out.println();
+        System.out.println(person);
         personList.add(person);
         personRegistration.addPersonToTxt(personList.size(), person);
         userAnswer.clear();
