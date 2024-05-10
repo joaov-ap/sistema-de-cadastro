@@ -1,13 +1,14 @@
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class PersonRegistration {
     public void addPersonToTxt(int i, Person person) {
         try {
-            FileWriter fileWriter = new FileWriter((i+1) + " - " + person.getName().toUpperCase().replace(" ", "") + ".txt");
+            FileWriter fileWriter = new FileWriter(i + " - " + person.getName().toUpperCase().replace(" ", "") + ".txt");
             fileWriter.write(person.toString());
             fileWriter.close();
         } catch (IOException e) {
@@ -30,23 +31,20 @@ public class PersonRegistration {
     }
 
     public void addedPersonList(List<Person> personList) {
-        int i = 0;
-        for (Person person : personList) {
-            System.out.println((i+1) + " - " + person.getName());
-            i++;
+        for (int i = 0; i < personList.size(); i++) {
+            System.out.println((i+1) + " - " + personList.get(i).getName());
         }
     }
 
-    public void register(List<String> questions, List<String> userAnswer, List<Person> personList, PersonRegistration personRegistration) {
+    public void register(List<String> userAnswer, List<Person> personList, PersonRegistration personRegistration) {
         Scanner sc = new Scanner(System.in);
+        List<String> questions = new ArrayList<>();
         personRegistration.questionsReader(questions);
 
-        int i = 0;
-        while (i < questions.size()) {
+        for (int i = 0; i < questions.size(); i++) {
             System.out.println(questions.get(i));
             String answer = sc.nextLine();
             userAnswer.add(answer);
-            i++;
         }
 
         String name = userAnswer.get(0);
@@ -57,6 +55,6 @@ public class PersonRegistration {
         Person person = new Person(name, email, age, height);
         personList.add(person);
         personRegistration.addPersonToTxt(personList.size(), person);
+        userAnswer.clear();
     }
-
 }

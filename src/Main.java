@@ -6,18 +6,16 @@ public class Main {
     public static void main(String[] args) {
         PersonRegistration personRegistration = new PersonRegistration();
         List<Person> personList = new ArrayList<>();
-        List<String> questions = new ArrayList<>();
         List<String> userAnswer = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
-        while (true) {
-            int i = 0;
+        int i = 0;
+        while (i != 6) {
             menu();
             i = sc.nextInt();
-
             switch (i) {
                 case 1:
-                    personRegistration.register(questions, userAnswer, personList, personRegistration);
+                    personRegistration.register(userAnswer, personList, personRegistration);
                     System.out.println();
                     break;
                 case 2:
@@ -33,13 +31,15 @@ public class Main {
                 case 5:
                     System.out.println();
                     break;
+                case 6:
+                    System.out.println("Saindo.....");
+                    break;
                 default:
                     System.out.println("Escolha invalida. Tente novamente!");
                     System.out.println();
                     break;
             }
         }
-
     }
 
     public static void menu() {
@@ -49,6 +49,7 @@ public class Main {
                 3 - Cadastrar nova pergunta no formulário
                 4 - Deletar pergunta do formulário
                 5 - Pesquisar usuário por nome ou idade ou email
+                6 - Sair
                 Escolha sua opção: 
                 """);
     }
