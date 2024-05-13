@@ -14,7 +14,7 @@ public class Main {
             i = sc.nextInt();
             switch (i) {
                 case 1:
-                    personRegistration.register(personList, personRegistration);
+                    personRegistration.register(personList);
                     System.out.println();
                     break;
                 case 2:
@@ -22,6 +22,7 @@ public class Main {
                     System.out.println();
                     break;
                 case 3:
+                    personRegistration.addNewQuestion();
                     System.out.println();
                     break;
                 case 4:
