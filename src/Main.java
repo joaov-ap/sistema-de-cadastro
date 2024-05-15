@@ -6,6 +6,8 @@ public class Main {
     public static void main(String[] args) {
         PersonRegistration personRegistration = new PersonRegistration();
         List<Person> personList = new ArrayList<>();
+        List<String> questions = new ArrayList<>();
+        personRegistration.questionsReader(questions);
         Scanner sc = new Scanner(System.in);
 
         int i = 0;
@@ -14,7 +16,7 @@ public class Main {
             i = sc.nextInt();
             switch (i) {
                 case 1:
-                    personRegistration.register(personList);
+                    personRegistration.register(personList, questions);
                     System.out.println();
                     break;
                 case 2:
@@ -22,10 +24,11 @@ public class Main {
                     System.out.println();
                     break;
                 case 3:
-                    personRegistration.addNewQuestion();
+                    personRegistration.addNewQuestion(questions);
                     System.out.println();
                     break;
                 case 4:
+                    personRegistration.removeNewQuestions(questions);
                     System.out.println();
                     break;
                 case 5:
@@ -50,7 +53,7 @@ public class Main {
                 4 - Deletar pergunta do formulário
                 5 - Pesquisar usuário por nome ou idade ou email
                 6 - Sair
-                Escolha sua opção: 
+                Escolha sua opção:
                 """);
     }
 }

@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PersonRegistration {
-    private final String FORMS = "formulario.txt";
-
-    private List<String> questions = new ArrayList<>();
+    private static final String FORMS_FILE = "formulario.txt";
     private List<String> userAnswer = new ArrayList<>();
 
     public void addPersonToTxt(int i, Person person) {
@@ -21,25 +19,9 @@ public class PersonRegistration {
         }
     }
 
-    public int getQuestionsSize() {
-        int i = 0;
+    public void questionsReader(List<String> questions) {
         try {
-            FileReader file = new FileReader(FORMS);
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                i++;
-            }
-            file.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return i;
-    }
-
-    public void questionsReader() {
-        try {
-            FileReader file = new FileReader(FORMS);
+            FileReader file = new FileReader(FORMS_FILE);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -57,9 +39,8 @@ public class PersonRegistration {
         }
     }
 
-    public void register(List<Person> personList) {
+    public void register(List<Person> personList, List<String> questions) {
         Scanner sc = new Scanner(System.in);
-        questionsReader();
 
         for (String question : questions) {
             System.out.println(question);
@@ -80,19 +61,36 @@ public class PersonRegistration {
         userAnswer.clear();
     }
 
-    public void addNewQuestion() {
-        questionsReader();
+    public void addNewQuestion(List<String> questions) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Digite a pergunta para ser adicionada ao formulario: ");
+        System.out.print("Digite a pergunta a ser adicionada ao formulario: ");
         String userQuestion = sc.nextLine();
-        questions.add((getQuestionsSize() + 1) + " - " + userQuestion + "?");
+        questions.add((questions.size() + 1) + " - " + userQuestion + "?");
 
         try {
-            FileWriter fileWriter = new FileWriter("teste.txt");
-            fileWriter.write(questions.toString());
+            FileWriter fileWriter = new FileWriter(FORMS_FILE, true);
+            fileWriter.write("\n" + questions.get(questions.size() - 1));
             fileWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void removeNewQuestions(List<String> questions) {
+        Scanner sc = new Scanner(System.in);
+        questions.forEach(System.out::println);
+        System.out.print("Digite o numero da pergunta a ser removida do formulario: ");
+        int questionIndex = sc.nextInt();
+
+        if (questionIndex != 0 || questionIndex != 1 || questionIndex != 2 || questionIndex != 3) {
+            System.out.print("Voce realmente deseja excluir a pergunta: ");
+            System.out.println('"' + questions.get(questionIndex-1) + '"');
+            System.out.println("1 - Sim\n2 - Nao");
+            int confirm = sc.nextInt();
+
+            if (confirm != 1 || confirm != 2){
+                System.out.println("Escolha entre 1 e 2!");
+            }
         }
     }
 }
