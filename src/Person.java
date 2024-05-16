@@ -32,6 +32,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight() + "\n";
+        return getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight();
     }
 }

@@ -78,17 +78,24 @@ public class PersonRegistration {
 
     public void removeNewQuestions(List<String> questions) {
         Scanner sc = new Scanner(System.in);
+        System.out.println();
         questions.forEach(System.out::println);
+        System.out.println();
         System.out.print("Digite o numero da pergunta a ser removida do formulario: ");
-        int questionIndex = sc.nextInt();
+        int questionIndex = sc.nextInt() - 1;
 
         if (questionIndex != 0 || questionIndex != 1 || questionIndex != 2 || questionIndex != 3) {
             System.out.print("Voce realmente deseja excluir a pergunta: ");
-            System.out.println('"' + questions.get(questionIndex-1) + '"');
-            System.out.println("1 - Sim\n2 - Nao");
+            System.out.println('"' + questions.get(questionIndex) + '"');
+            System.out.println("1 - Sim\n2 - Não");
             int confirm = sc.nextInt();
 
-            if (confirm != 1 || confirm != 2){
+            if (confirm == 1){
+                questions.remove(questionIndex-1);
+                System.out.println("Pergunta " + questionIndex + " removida.");
+            } else if (confirm == 2) {
+                return;
+            } else {
                 System.out.println("Escolha entre 1 e 2!");
             }
         }
