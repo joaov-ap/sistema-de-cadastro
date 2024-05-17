@@ -8,10 +8,13 @@ import java.util.Scanner;
 public class PersonRegistration {
     private static final String FORMS_FILE = "formulario.txt";
     private List<String> userAnswer = new ArrayList<>();
+    private FileWriter fileWriter;
+    private Scanner sc = new Scanner(System.in);
+    private String userQuestion;
 
     public void addPersonToTxt(int i, Person person) {
         try {
-            FileWriter fileWriter = new FileWriter(i + " - " + person.getName().toUpperCase().replace(" ", "") + ".txt");
+            fileWriter = new FileWriter(i + " - " + person.getName().toUpperCase().replace(" ", "") + ".txt");
             fileWriter.write(person.toString());
             fileWriter.close();
         } catch (IOException e) {
@@ -40,8 +43,6 @@ public class PersonRegistration {
     }
 
     public void register(List<Person> personList, List<String> questions) {
-        Scanner sc = new Scanner(System.in);
-
         for (String question : questions) {
             System.out.println(question);
             String answer = sc.nextLine();
@@ -62,13 +63,12 @@ public class PersonRegistration {
     }
 
     public void addNewQuestion(List<String> questions) {
-        Scanner sc = new Scanner(System.in);
         System.out.print("Digite a pergunta a ser adicionada ao formulario: ");
-        String userQuestion = sc.nextLine();
-        questions.add((questions.size() + 1) + " - " + userQuestion + "?");
+        this.userQuestion = sc.nextLine();
+        questions.add((questions.size() + 1) + " - " + this.userQuestion + "?");
 
         try {
-            FileWriter fileWriter = new FileWriter(FORMS_FILE, true);
+            fileWriter = new FileWriter(FORMS_FILE, true);
             fileWriter.write("\n" + questions.get(questions.size() - 1));
             fileWriter.close();
         } catch (IOException e) {
@@ -77,27 +77,47 @@ public class PersonRegistration {
     }
 
     public void removeNewQuestions(List<String> questions) {
-        Scanner sc = new Scanner(System.in);
         System.out.println();
         questions.forEach(System.out::println);
         System.out.println();
         System.out.print("Digite o numero da pergunta a ser removida do formulario: ");
         int questionIndex = sc.nextInt() - 1;
 
-        if (questionIndex != 0 || questionIndex != 1 || questionIndex != 2 || questionIndex != 3) {
+        if (questionIndex != 0 && questionIndex != 1 && questionIndex != 2 && questionIndex != 3) {
             System.out.print("Voce realmente deseja excluir a pergunta: ");
             System.out.println('"' + questions.get(questionIndex) + '"');
             System.out.println("1 - Sim\n2 - Não");
             int confirm = sc.nextInt();
 
-            if (confirm == 1){
-                questions.remove(questionIndex-1);
-                System.out.println("Pergunta " + questionIndex + " removida.");
-            } else if (confirm == 2) {
-                return;
-            } else {
-                System.out.println("Escolha entre 1 e 2!");
+            switch (confirm) {
+                case 1:
+                    questions.remove(questionIndex);
+                    System.out.println("Pergunta " + (questionIndex + 1) + " removida.");
+                    try {
+                        fileWriter = new FileWriter(FORMS_FILE);
+                        if (questions.size() > 4) {
+                            questions.set(questionIndex, (questions.size()) + " - " + this.userQuestion + "?");
+                        }
+                        for (String question : questions) {
+                            if (question.equals(questions.getLast())) {
+                                fileWriter.write(question);
+                            } else {
+                                fileWriter.write(question + "\n");
+                            }
+                        }
+                        fileWriter.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                case 2:
+                    break;
+                default:
+                    System.out.println("Escolha entre 1 e 2!");
+                    break;
             }
+        } else {
+            System.out.println("As perguntas 1, 2, 3 e 4 nao podem ser removidas");
         }
     }
 }
