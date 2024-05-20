@@ -88,6 +88,7 @@ public class PersonRegistration {
             System.out.println('"' + questions.get(questionIndex) + '"');
             System.out.println("1 - Sim\n2 - Não");
             int confirm = sc.nextInt();
+            sc.nextLine();
 
             switch (confirm) {
                 case 1:
