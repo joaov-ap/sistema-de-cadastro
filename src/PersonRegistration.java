@@ -82,43 +82,38 @@ public class PersonRegistration {
         System.out.println();
         System.out.print("Digite o numero da pergunta a ser removida do formulario: ");
         int questionIndex = sc.nextInt() - 1;
+        sc.nextLine();
 
         if (questionIndex != 0 && questionIndex != 1 && questionIndex != 2 && questionIndex != 3) {
-            System.out.print("Voce realmente deseja excluir a pergunta: ");
-            System.out.println('"' + questions.get(questionIndex) + '"');
-            System.out.println("1 - Sim\n2 - Não");
-            int confirm = sc.nextInt();
-            sc.nextLine();
-
-            switch (confirm) {
-                case 1:
-                    questions.remove(questionIndex);
-                    System.out.println("Pergunta " + (questionIndex + 1) + " removida.");
-                    try {
-                        fileWriter = new FileWriter(FORMS_FILE);
-                        if (questions.size() > 4) {
-                            questions.set(questionIndex, (questions.size()) + " - " + this.userQuestion + "?");
-                        }
-                        for (String question : questions) {
-                            if (question.equals(questions.getLast())) {
-                                fileWriter.write(question);
-                            } else {
-                                fileWriter.write(question + "\n");
-                            }
-                        }
-                        fileWriter.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+            questions.remove(questionIndex);
+            System.out.println("Pergunta " + (questionIndex + 1) + " removida.");
+            try {
+                fileWriter = new FileWriter(FORMS_FILE);
+                if (questions.size() > 4) {
+                    questions.set(questionIndex, (questions.size()) + " - " + this.userQuestion + "?");
+                }
+                for (String question : questions) {
+                    if (question.equals(questions.getLast())) {
+                        fileWriter.write(question);
+                    } else {
+                        fileWriter.write(question + "\n");
                     }
-                    break;
-                case 2:
-                    break;
-                default:
-                    System.out.println("Escolha entre 1 e 2!");
-                    break;
+                }
+                fileWriter.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         } else {
             System.out.println("As perguntas 1, 2, 3 e 4 nao podem ser removidas");
         }
+    }
+
+    public void userSearch(List<Person> personList) {
+        System.out.println();
+        System.out.print("Digite o nome que deseja buscar: ");
+        String searchName = sc.nextLine();
+        System.out.print("Cadastrados: ");
+        personList.stream().filter(p -> p.getName().contains(searchName) || p.getEmail().contains(searchName) || String.valueOf(p.getAge()).contains(searchName)).forEach(p -> System.out.print(p.getName() + ", "));
+        System.out.println();
     }
 }

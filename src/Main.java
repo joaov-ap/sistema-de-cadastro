@@ -32,6 +32,7 @@ public class Main {
                     System.out.println();
                     break;
                 case 5:
+                    personRegistration.userSearch(personList);
                     System.out.println();
                     break;
                 case 6:
