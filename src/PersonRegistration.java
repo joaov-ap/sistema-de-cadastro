@@ -84,42 +84,43 @@ public class PersonRegistration {
         int questionIndex = sc.nextInt() - 1;
         sc.nextLine();
 
-        if (questions.get(questionIndex).equals(questions.getLast())) {
-            questions.remove(questionIndex);
-        }
-
         if (questionIndex != 0 && questionIndex != 1 && questionIndex != 2 && questionIndex != 3) {
-            questions.remove(questionIndex);
+            if (questions.get(questionIndex).equals(questions.getLast())) {
+                questions.remove(questionIndex);
+            }
+            else {
+                questions.remove(questionIndex);
+                if (questions.size() > 4) {
+                    questions.set(questionIndex, (questions.size()) + " - " + this.userQuestion + "?");
+                }
+            }
+
+            System.out.println("Pergunta " + (questionIndex + 1) + " removida.");
+            try {
+                fileWriter = new FileWriter(FORMS_FILE);
+                for (String question : questions) {
+                    if (question.equals(questions.getLast())) {
+                        fileWriter.write(question);
+                    } else {
+                        fileWriter.write(question + "\n");
+                    }
+                }
+                fileWriter.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             System.out.println("As perguntas 1, 2, 3 e 4 nao podem ser removidas");
         }
-
-        System.out.println("Pergunta " + (questionIndex + 1) + " removida.");
-        try {
-            fileWriter = new FileWriter(FORMS_FILE);
-            if (questions.size() > 4) {
-                questions.set(questionIndex, (questions.size()) + " - " + this.userQuestion + "?");
-            }
-            for (String question : questions) {
-                if (question.equals(questions.getLast())) {
-                    fileWriter.write(question);
-                } else {
-                    fileWriter.write(question + "\n");
-                }
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
     }
 
     public void userSearch(List<Person> personList) {
         System.out.println();
-        System.out.print("Digite o nome que deseja buscar: ");
-        String searchName = sc.nextLine();
+        System.out.print("Digite o nome, idade ou email para buscar pessoas cadastradas: ");
+        String search = sc.nextLine();
         System.out.print("Cadastrados: ");
-        personList.stream().filter(p -> p.getName().contains(searchName) || p.getEmail().contains(searchName) || String.valueOf(p.getAge()).contains(searchName)).forEach(p -> System.out.print(p.getName() + ", "));
+        personList.stream().filter(p -> p.getName().contains(search) || p.getEmail().contains(search) || String.valueOf(p.getAge()).contains(search))
+                .forEach(p -> System.out.print());
         System.out.println();
     }
 }
