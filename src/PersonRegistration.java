@@ -7,10 +7,11 @@ import java.util.Scanner;
 
 public class PersonRegistration {
     private static final String FORMS_FILE = "formulario.txt";
-    private List<String> userAnswer = new ArrayList<>();
-    private FileWriter fileWriter;
+
     private Scanner sc = new Scanner(System.in);
+    private FileWriter fileWriter;
     private String userQuestion;
+    private List<String> userAnswer = new ArrayList<>();
 
     public void addPersonToTxt(int i, Person person) {
         try {
@@ -37,8 +38,8 @@ public class PersonRegistration {
     }
 
     public void addedPersonList(List<Person> personList) {
-        for (int i = 0; i < personList.size(); i++) {
-            System.out.println((i+1) + " - " + personList.get(i).getName());
+        for (int i = 1; i <= personList.size(); i++) {
+            System.out.println((i) + " - " + personList.get(i).getName());
         }
     }
 
@@ -69,7 +70,7 @@ public class PersonRegistration {
 
         try {
             fileWriter = new FileWriter(FORMS_FILE, true);
-            fileWriter.write("\n" + questions.get(questions.size() - 1));
+            fileWriter.write("\n" + questions.getLast());
             fileWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -118,9 +119,8 @@ public class PersonRegistration {
         System.out.println();
         System.out.print("Digite o nome, idade ou email para buscar pessoas cadastradas: ");
         String search = sc.nextLine();
-        System.out.print("Cadastrados: ");
+        System.out.println("Cadastrados:");
         personList.stream().filter(p -> p.getName().contains(search) || p.getEmail().contains(search) || String.valueOf(p.getAge()).contains(search))
-                .forEach(p -> System.out.print());
-        System.out.println();
+                .forEach(p -> System.out.println(p.getName()));
     }
 }
