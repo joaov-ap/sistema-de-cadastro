@@ -38,8 +38,8 @@ public class PersonRegistration {
     }
 
     public void addedPersonList(List<Person> personList) {
-        for (int i = 1; i <= personList.size(); i++) {
-            System.out.println((i) + " - " + personList.get(i).getName());
+        for (int i = 0; i < personList.size(); i++) {
+            System.out.println((i+1) + " - " + personList.get(i).getName());
         }
     }
 
@@ -116,11 +116,13 @@ public class PersonRegistration {
     }
 
     public void userSearch(List<Person> personList) {
+        List<String> filteredNames = new ArrayList<>();
         System.out.println();
         System.out.print("Digite o nome, idade ou email para buscar pessoas cadastradas: ");
         String search = sc.nextLine();
-        System.out.println("Cadastrados:");
+        System.out.print("Cadastrados: ");
         personList.stream().filter(p -> p.getName().contains(search) || p.getEmail().contains(search) || String.valueOf(p.getAge()).contains(search))
-                .forEach(p -> System.out.println(p.getName()));
+                .forEach(p -> filteredNames.add(p.getName()));
+        filteredNames.forEach(p -> System.out.print((p.equals(filteredNames.getLast())) ? p : p + ", "));
     }
 }
