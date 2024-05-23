@@ -1,8 +1,11 @@
+import java.util.List;
+
 public class Person {
     private String name;
     private String email;
     private int age;
     private double height;
+    private List<String> userAnswer;
 
     public Person() {
     }
@@ -12,6 +15,14 @@ public class Person {
         this.email = email;
         this.age = age;
         this.height = height;
+    }
+
+    public Person(String name, String email, int age, double height, List<String> userAnswer) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.height = height;
+        this.userAnswer = userAnswer;
     }
 
     public String getName() {
@@ -30,8 +41,12 @@ public class Person {
         return height;
     }
 
+    public List<String> getUserAnswer() {
+        return userAnswer;
+    }
+
     @Override
     public String toString() {
-        return getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight();
+        return getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight() + "\n" + getUserAnswer();
     }
 }

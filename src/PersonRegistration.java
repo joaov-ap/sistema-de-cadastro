@@ -11,7 +11,6 @@ public class PersonRegistration {
     private Scanner sc = new Scanner(System.in);
     private FileWriter fileWriter;
     private String userQuestion;
-    private List<String> userAnswer = new ArrayList<>();
 
     public void addPersonToTxt(int i, Person person) {
         try {
@@ -44,10 +43,16 @@ public class PersonRegistration {
     }
 
     public void register(List<Person> personList, List<String> questions) {
+        List<String> userAnswer = new ArrayList<>();
+
         for (String question : questions) {
             System.out.println(question);
             String answer = sc.nextLine();
-            userAnswer.add(answer);
+            if (questions.size() > 4) {
+
+            } else {
+                userAnswer.add(answer);
+            }
         }
 
         String name = userAnswer.get(0);
