@@ -45,8 +45,19 @@ public class Person {
         return userAnswer;
     }
 
+    public String showNewAnswers() {
+        String teste = "";
+        for (String s : getUserAnswer()) {
+            teste = s;
+        }
+        return teste;
+    }
+
     @Override
     public String toString() {
-        return getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight() + "\n" + getUserAnswer();
+        if (getUserAnswer() == null) {
+            return getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight();
+        }
+        return getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight() + "\n" + showNewAnswers();
     }
 }

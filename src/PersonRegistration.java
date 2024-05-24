@@ -43,16 +43,14 @@ public class PersonRegistration {
     }
 
     public void register(List<Person> personList, List<String> questions) {
+        Person person = new Person();
         List<String> userAnswer = new ArrayList<>();
+        List<String> newUserAnswer = new ArrayList<>();
 
-        for (String question : questions) {
-            System.out.println(question);
+        for (int i = 0; i < questions.size(); i++) {
+            System.out.println(questions.get(i));
             String answer = sc.nextLine();
-            if (questions.size() > 4) {
-
-            } else {
-                userAnswer.add(answer);
-            }
+            userAnswer.add(answer);
         }
 
         String name = userAnswer.get(0);
@@ -60,7 +58,15 @@ public class PersonRegistration {
         int age = Integer.parseInt(userAnswer.get(2));
         double height = Double.parseDouble(userAnswer.get(3));
 
-        Person person = new Person(name, email, age, height);
+        if (questions.size() > 4) {
+            for (int i = 4; i < questions.size(); i++) {
+                newUserAnswer.add(userAnswer.get(i));
+            }
+            person = new Person(name, email, age, height, newUserAnswer);
+        } else {
+            person = new Person(name, email, age, height);
+        }
+
         System.out.println();
         System.out.println(person);
         personList.add(person);
@@ -129,5 +135,6 @@ public class PersonRegistration {
         personList.stream().filter(p -> p.getName().contains(search) || p.getEmail().contains(search) || String.valueOf(p.getAge()).contains(search))
                 .forEach(p -> filteredNames.add(p.getName()));
         filteredNames.forEach(p -> System.out.print((p.equals(filteredNames.getLast())) ? p : p + ", "));
+        System.out.println();
     }
 }
