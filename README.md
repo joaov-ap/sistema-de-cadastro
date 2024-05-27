@@ -21,7 +21,7 @@ Para executar este projeto, você precisará do seguinte:
 
 1. **Clonando o Repositório:**
 
-`git clone https://github.com/seu-usuario/sistema-cadastros.git
+`git clone https://github.com/seu-usuario/sistema-cadastros.git`
 
 2. **Executando o Projeto:**
 - Abra o projeto em sua IDE Java.
