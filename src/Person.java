@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Person {
     private String name;
@@ -55,11 +56,7 @@ public class Person {
     }
 
     public String showNewAnswers() {
-        String teste = "";
-        for (String s : getUserAnswer()) {
-            teste = s;
-        }
-        return teste;
+        return userAnswer.stream().collect(Collectors.joining("\n"));
     }
 
     @Override
