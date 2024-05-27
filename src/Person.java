@@ -4,24 +4,33 @@ public class Person {
     private String name;
     private String email;
     private int age;
-    private double height;
+    private String height;
     private List<String> userAnswer;
 
     public Person() {
     }
 
-    public Person(String name, String email, int age, double height) {
+    public Person(String name, String email, int age, String height) {
         this.name = name;
+        if (name.length() < 10) {
+            throw new NameLengthError("Nome deve possuir no mínimo 10 caracteres");
+        }
         this.email = email;
+        if (!email.contains("@")) {
+            throw new EmailError("O email deve possuir obrigatoriamente o caracter @");
+        }
         this.age = age;
+        if (age < 18) {
+            throw new UnderAgeError("O usuario deve ter mais de 18 anos");
+        }
         this.height = height;
+        if (height.contains(".")) {
+            throw new HeightCharacterError("A altura deverá ser sempre o número com virgulas");
+        }
     }
 
-    public Person(String name, String email, int age, double height, List<String> userAnswer) {
-        this.name = name;
-        this.email = email;
-        this.age = age;
-        this.height = height;
+    public Person(String name, String email, int age, String height, List<String> userAnswer) {
+        this(name, email, age, height);
         this.userAnswer = userAnswer;
     }
 
@@ -37,7 +46,7 @@ public class Person {
         return age;
     }
 
-    public double getHeight() {
+    public String getHeight() {
         return height;
     }
 
@@ -55,9 +64,7 @@ public class Person {
 
     @Override
     public String toString() {
-        if (getUserAnswer() == null) {
-            return getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight();
-        }
-        return getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight() + "\n" + showNewAnswers();
+        return (getUserAnswer() == null) ? getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight() :
+                getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight() + "\n" + showNewAnswers();
     }
 }

@@ -3,12 +3,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class PersonRegistration {
     private static final String FORMS_FILE = "formulario.txt";
 
-    private Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in).useLocale(Locale.FRENCH);
     private FileWriter fileWriter;
     private String userQuestion;
 
@@ -51,12 +52,19 @@ public class PersonRegistration {
             System.out.println(questions.get(i));
             String answer = sc.nextLine();
             userAnswer.add(answer);
+            if (userAnswer.size() == 2 && !personList.isEmpty()) {
+                for (int j = 0; j < personList.size(); j++) {
+                    if (personList.get(j).getEmail().equals(userAnswer.get(1))) {
+                        throw new EmailError("Este email ja esta cadastrado.");
+                    }
+                }
+            }
         }
 
         String name = userAnswer.get(0);
         String email = userAnswer.get(1);
         int age = Integer.parseInt(userAnswer.get(2));
-        double height = Double.parseDouble(userAnswer.get(3));
+        String height = userAnswer.get(3);
 
         if (questions.size() > 4) {
             for (int i = 4; i < questions.size(); i++) {
