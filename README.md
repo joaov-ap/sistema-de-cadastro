@@ -1,4 +1,4 @@
-# Sistema de Cadastros - README
+# Sistema de Cadastros - JAVA
 
 Este é um projeto de sistema de cadastros desenvolvido em Java, com o objetivo de cadastrar pessoas e suas informações básicas através de um aplicativo de linha de comando (CLI). O projeto envolve o uso de conceitos de Orientação a Objetos, manipulação de arquivos, tratamento de exceções, e boas práticas de código.
 
