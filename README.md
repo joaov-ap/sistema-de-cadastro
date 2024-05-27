@@ -32,7 +32,3 @@ git clone https://github.com/seu-usuario/sistema-cadastros.git
 
 4. **Deletando Perguntas:**
 - Para deletar perguntas do formulário, selecione a opção correspondente no menu principal e insira o número da pergunta que deseja remover.
-
-## Licença
-
-Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
